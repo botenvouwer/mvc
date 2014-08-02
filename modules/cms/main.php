@@ -2,9 +2,18 @@
 
 	class main{
 		
-		function main(){
-			//show cms start page
+		function __construct(){
+			//before action is excututed
 		}
+		
+		function contruct(){
+			//default action
+		}
+		
+		function main(){
+			//default function
+		}
+		
 		
 	}
 

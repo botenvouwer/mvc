@@ -30,6 +30,7 @@
 	class microBoatDB extends Pdo{
 		
 		private $debugMode = false;
+		public $lastQuery = 'No Queries made yet';
 		
 		public function __construct($server = '', $dbname = '', $user = '', $pass = ''){
 			
@@ -72,32 +73,6 @@
 		
 		public function listTables(){
 			//lijst maken van tabbelen
-		}
-
-		public function prepareQuery($queryString, $param = array()){
-		
-			$query = $this->prepare($queryString);
-			foreach($param as $par){
-				if(!isset($par[2])){
-					$par[2] = false;
-				}
-				switch($par[2]){
-					case 'int':
-						$query->bindParam($par[0], $par[1], PDO::PARAM_INT);
-						break;
-					case 'str':
-						$query->bindParam($par[0], $par[1], PDO::PARAM_STR);
-						break;
-					case 'blob':
-						$query->bindParam($par[0], $par[1], PDO::PARAM_LOB);
-						break;
-					default:
-						$query->bindParam($par[0], $par[1], PDO::PARAM_STR);
-						break;
-				}
-			}
-			$query->execute();
-			return $query;
 		}
 		
 		public function query(){
@@ -163,10 +138,9 @@
 			}
 		}
 		
-		public function one($query, $param = array()){
-			$query = $this->prepareQuery($query, $param);
-			$query = $query->fetchColumn();
-			return $query;
+		public function one($query = '', $label = '', $value = ''){
+			$query = $this->query($query, $label, $value);
+			return $query->fetchColumn();
 		}
 		
 		public function add($tablename, $table_colloms){
