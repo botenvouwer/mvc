@@ -164,7 +164,7 @@
 	
 	if(!userHasRight($request)){
 		$nameSpace = 'authentication';
-		//Haal instellingen van autenticvatie namespace op en valideer deze opnieuw
+		//Haal instellingen van autenticatie namespace op en valideer deze opnieuw
 	}
 	
 	//voer actie uit
