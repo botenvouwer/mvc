@@ -1,15 +1,15 @@
 <?php
-
-	class blog{
+	
+	class products{
 		
 		function main(){
 			
 		}
 		
-		function item(){
+		function detail(){
 			
 		}
 		
 	}
-
+	
 ?>

@@ -6,6 +6,10 @@
 			
 		}
 		
+		function page(){
+			
+		}
+		
 	}
 
 ?>

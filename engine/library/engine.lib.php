@@ -10,7 +10,7 @@
 	
 	function pageNotFound(){
 		if($GLOBALS['conf']['debug']){
-			echo "namespace/action/subaction not found: <i>$GLOBALS[request]</i> <br> nameSpace: $GLOBALS[nameSpace] <br> action: $GLOBALS[action] <br> subaction: $GLOBALS[subaction] <br> ";
+			echo "Request could not be interpreted to proper action: <i>$GLOBALS[request]</i> <br> nameSpace: $GLOBALS[nameSpace] <br> action: $GLOBALS[action] <br> subaction: $GLOBALS[subaction] <br> ";
 			exit;
 		}
 		else{
@@ -52,17 +52,27 @@
 	
 	//to import large blocks of php code like pdf or mail plugins
 	function import($plugin_name){
-		if(is_dir("$GLOBALS[root]/engine/plug-ins/$plugin_name")){
-			if(file_exists("$GLOBALS[root]/engine/plug-ins/$plugin_name/use.php")){
-				include_once("$GLOBALS[root]/engine/plug-ins/$plugin_name/use.php");
+		if(is_dir("$GLOBALS[root]/engine/foreign_libraries/$plugin_name")){
+			if(file_exists("$GLOBALS[root]/engine/foreign_libraries/$plugin_name/use.php")){
+				include_once("$GLOBALS[root]/engine/foreign_libraries/$plugin_name/use.php");
 			}
 			else{
-				trigger_error("MVC error: No use.php found in plugin folder. Declare a use.php. use.php preforms all necessary actions to load plugin.", E_USER_ERROR);
+				trigger_error("MVC error: No use.php found in foreign library folder. Declare a use.php. use.php preforms all necessary actions to load foreign library.", E_USER_ERROR);
 			}
 		}
 		else{
-			trigger_error('MVC error: Plug-in folder not found.');
+			trigger_error('MVC error: "[root]/engine/foreign_libraries/" folder not found.');
 		}
+	}
+	
+	function setView($viewName){
+		
+		global $actionInstance;
+		
+		//todo: haal view op en maak instantie aan
+		
+		$actionInstance->view = false;
+		
 	}
 	
 	function parseList($list, $separator = ','){

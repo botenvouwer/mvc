@@ -1,5 +1,11 @@
 <?php
 	
+	/* ~index.php - MicroBoatMVC
+	
+		Version 0.0.4
+	
+	*/
+	
 	session_start();
 	
 	$request = $_SERVER['REQUEST_URI'];
@@ -95,6 +101,11 @@
 	
 	$actionFound = false;
 	if(file_exists("$root/modules/$nameSpace/")){
+		
+		if(file_exists("$root/modules/$nameSpace/main.php")){
+			include_once("$root/modules/$nameSpace/main.php");
+		}
+		
 		foreach(glob("$root/modules/$nameSpace/*.php") as $path){
 			include_once($path);
 			if(class_exists($action)){
@@ -108,7 +119,15 @@
 		$modules = array_filter(glob($root.'/modules/*'), 'is_dir');
 		foreach($modules as $module){
 			
-			foreach(glob($module.($nameSpace != 'default' ? $nameSpace : '').'/*.php') as $path){
+			$modParts = glob($module.($nameSpace != 'default' ? "/$nameSpace" : '').'/*.php');
+			if($nameSpace == 'default'){
+				if($key = array_search("$module/main.php", $modParts)){
+					include_once($modParts[$key]);
+					unset($modParts[$key]);
+				}
+			}
+			
+			foreach($modParts as $path){
 				include_once($path);
 				
 				if(class_exists($action)){
@@ -151,23 +170,51 @@
 	$parameters = $requestPart;
 	
 	$param = null;
-	if(count($parameters) >= 1){
+	if($paramCount = count($parameters) >= 1){
 		$param = $parameters[0];
 	}
 	
-	//actions ontleden en analyzeren controleren of gebruiker rechten heeft en toegang
-		//controleren of actie voorkomt in db en db actie ophalen
-		//contoleren of opgevraagde functie niet al bestaad als deze al bestaad foutmelding
-		//alle controlers laden tot gewenste controler is gevonden
-		//rechten contole kijk of gebruiker recht heeft op functie
-		//controleren of actie een eigen style template heeft en deze ophalen
-	
 	if(!userHasRight($request)){
-		$nameSpace = 'authentication';
-		//Haal instellingen van autenticatie namespace op en valideer deze opnieuw
+		if($ajax){
+			//stuur ajax foutmelding
+		}
+		else{
+			$nameSpace = 'authentication';
+			//laad autenticatie part
+		}
 	}
 	
-	//voer actie uit
-	echo printRequest();
+	//todo: filter op standaart object namen die men nooit kan aanroepen
+	
+	$actionInstance = new $action();
+	$actionInstance->view = false;
+	
+	//view opmaken
+	if(!$ajax){
+		if($actionInstance->view){
+			setView($actionInstance->view);
+		}
+		else{
+			//todo: haal standaart view op of haal view op uit module
+		}
+	}
+	
+	//todo: classe methode analyseren //- parameters valideren
+	
+	//todo: objecten toevoegen -! nakijken
+	$actionInstance->param = $param;
+	$actionInstance->db = $db;
+	$actionInstance->url = $url;
+	$actionInstance->adres = $adres;
+	$actionInstance->root = $root;
+	$actionInstance->conf = $conf;
+	$actionInstance->root = $root;
+	
+	//todo: methode aantroepen met prarameters -! nakijken
+	call_user_func_array(array($actionInstance, $subaction), $parameters);
+	
+	if($actionInstance->view){
+		$actionInstance->view->send();
+	}
 	
 ?>

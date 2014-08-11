@@ -1,21 +1,19 @@
 <?php
-	
-	class basked{
+
+	class blog{
 		
 		function main(){
 			
 		}
 		
-		function add(){
+		function item(){
 			
 		}
 		
-		function remove(){
+		function update(){
 			
 		}
-		
-		
 		
 	}
-	
+
 ?>

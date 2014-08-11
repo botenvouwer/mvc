@@ -1,17 +1,13 @@
 <?php
 
-	class main{
+	class cms{
 		
 		function __construct(){
 			//before action is excututed
 		}
 		
-		function contruct(){
-			//default action
-		}
-		
 		function main(){
-			//default function
+			//default action
 		}
 		
 		
