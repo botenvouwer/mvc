@@ -4,11 +4,12 @@
 		
 		function main(){
 			echo "hier komt blogje";
+			echo printRequest();
 		}
 		
-		function item($test = ''){
+		function item($id = 0, $niceUrl = ''){
 			
-			echo "ja het werkt $test";
+			echo "ja het werkt $id";
 			
 		}
 		

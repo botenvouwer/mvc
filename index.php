@@ -2,10 +2,11 @@
 	
 	/* ~index.php - MicroBoatMVC
 	
-		Version 0.0.4
+		Version 0.0.5
 	
 	*/
 	
+	//Basic configuration
 	session_start();
 	
 	$request = $_SERVER['REQUEST_URI'];
@@ -22,6 +23,10 @@
 	$conf = parse_ini_file($root.'/conf.ini');
 	date_default_timezone_set($conf['timezone']);
 	
+	//subActions that can't be reached because they serve another purpose
+	$myNotCall = array('db','url','adres','root','conf');
+	
+	//error reporting and debug mode configuration
 	if($conf['debug']){
 		error_reporting(E_ALL);
 	}
@@ -29,32 +34,40 @@
 		error_reporting(0);
 	}
 	
+	//load standard library files
 	foreach(glob($root.'/engine/library/*.php') as $path){
 		require_once($path);
 	}
 	
+	//check if request is an ajax request
 	$ajax = false;
 	if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) AND strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'){
 	   $ajax = true;
 	}
 	
+	//initiate database class
 	$db = new microBoatDB($conf['db_adres'],$conf['database'],$conf['db_user'],$conf['db_pass']);
 	
+	//initiate user session
 	if(!isset($_SESSION['user'])){
 		$_SESSION['user'] = 0;
 	}
 	
+	//url lookup in database (if found the namespace, action and subaction will be specified by the web_url table)
 	$urlAction = $db->one("SELECT `action` FROM `web_url` WHERE `url` = :req", ':req', $request);
 	
 	if($urlAction){
-		$param = $request;
-		$request = $urlAction;
+		$urlAction = trim($urlAction, '/');
+		$urlID = $db->one("SELECT `id` FROM `web_url` WHERE `url` = :req", ':req', $request);
+		$requestPart = explode('/', $urlAction);
+		$requestPart[] = $urlID;
+	}
+	else{
+		$requestPart = explode('/', $request);
 	}
 	
-	$requestPart = trim($request, '/');
-	$requestPart = explode('/', $requestPart);
+	//parse url to: namespace, action, subaction and optional parameters
 	$num = count($requestPart);
-	
 	if(isset($requestPart[0])){
 		if(!$requestPart[0]){
 			unset($requestPart[0]);
@@ -65,7 +78,7 @@
 	$action = '';
 	$subaction = '';
 	
-	//namespace opmaken
+	//namespace
 	$nameSpace = 'default';
 	
 	$nameSpaces = array_filter(glob($root.'/namespaces/*'), 'is_dir');
@@ -81,7 +94,7 @@
 	
 	$nameSpaceConf = parseJsonFile("$root/namespaces/$nameSpace/conf.json");
 	
-	//action opmaken
+	//action
 	$action = $nameSpaceConf['action'];
 	$view = $nameSpaceConf['view'];
 	
@@ -142,12 +155,17 @@
 		pageNotFound();
 	}
 	
-	//subaction opmaken
+	//subaction
 	$mainMethodExists = method_exists($action, $nameSpaceConf['subaction']);
 	
 	$requestMethodExists = false;
 	if(isset($requestPart[0])){
-		$requestMethodExists = method_exists($action, $requestPart[0]);
+		if($requestPart[0] === 'main'){
+			pageNotFound();
+		}
+		else{
+			$requestMethodExists = method_exists($action, $requestPart[0]);
+		}
 	}
 	
 	$subactionFound = false;
@@ -166,14 +184,32 @@
 		pageNotFound();
 	}
 	
-	//parameters opmaken
-	$parameters = $requestPart;
-	
-	$param = null;
-	if($paramCount = count($parameters) >= 1){
-		$param = $parameters[0];
+	if(in_array($subaction, $myNotCall)){
+		pageNotFound();
 	}
 	
+	$requestedAction = new ReflectionMethod($action, $subaction);
+	
+	if(!$requestedAction->isPublic()){
+		pageNotFound();
+	}
+	
+	//analyze parameters of method and compare them with the given parameters from the request
+	$parameters = $requestPart;
+	
+	$paramCount = count($parameters);
+	$requiredParametersCount = $requestedAction->getNumberOfRequiredParameters();
+	$allParametersCount = $requestedAction->getNumberOfParameters();
+	
+	if($requiredParametersCount > 0 && $requiredParametersCount != $paramCount){
+		pageNotFound();
+	}
+	
+	if($allParametersCount > 0 && $allParametersCount < $paramCount){
+		pageNotFound();
+	}
+	
+	//check if user has rights to use requested actions
 	if(!userHasRight($request)){
 		if($ajax){
 			//stuur ajax foutmelding
@@ -184,12 +220,10 @@
 		}
 	}
 	
-	//todo: filter op standaart object namen die men nooit kan aanroepen
-	
 	$actionInstance = new $action();
 	$actionInstance->view = false;
 	
-	//view opmaken
+	//find view for the request
 	if(!$ajax){
 		if($actionInstance->view){
 			setView($actionInstance->view);
@@ -199,18 +233,13 @@
 		}
 	}
 	
-	//todo: classe methode analyseren //- parameters valideren
-	
 	//todo: objecten toevoegen -! nakijken
-	$actionInstance->param = $param;
 	$actionInstance->db = $db;
 	$actionInstance->url = $url;
 	$actionInstance->adres = $adres;
 	$actionInstance->root = $root;
 	$actionInstance->conf = $conf;
-	$actionInstance->root = $root;
 	
-	//todo: methode aantroepen met prarameters -! nakijken
 	call_user_func_array(array($actionInstance, $subaction), $parameters);
 	
 	if($actionInstance->view){

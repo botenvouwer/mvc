@@ -10,7 +10,9 @@
 	
 	function pageNotFound(){
 		if($GLOBALS['conf']['debug']){
-			echo "Request could not be interpreted to proper action: <i>$GLOBALS[request]</i> <br> nameSpace: $GLOBALS[nameSpace] <br> action: $GLOBALS[action] <br> subaction: $GLOBALS[subaction] <br> ";
+			
+			$debug = debug_backtrace();
+			echo "Request could not be interpreted to proper action: <i>$GLOBALS[request]</i> <br> At line: <b>{$debug[0]['line']}</b> - in file: <i>{$debug[0]['file']}</i> <br> nameSpace: <b>$GLOBALS[nameSpace]</b> <br> action: <b>$GLOBALS[action]</b> <br> subaction: <b>$GLOBALS[subaction]</b> <br> ";
 			exit;
 		}
 		else{
@@ -24,26 +26,23 @@
 		return "
 			<table>
 				<tr>
-					<td colspan='2'>$GLOBALS[request]</td>
+					<td>request:</td>
+					<td><i>$GLOBALS[request]</i></td>
 				</tr>
 				<tr>
-					<td>namespace:</td>
-					<td>$GLOBALS[nameSpace]</td>
+					<td>nameSpace:</td>
+					<td><b>$GLOBALS[nameSpace]</b></td>
 				</tr>
 				<tr>
 					<td>action:</td>
-					<td>$GLOBALS[action]</td>
+					<td><b>$GLOBALS[action]</b></td>
 				</tr>
 				<tr>
-					<td>sub action:</td>
-					<td>$GLOBALS[subaction]</td>
+					<td>subaction:</td>
+					<td><b>$GLOBALS[subaction]</b></td>
 				</tr>
 				<tr>
-					<td>param:</td>
-					<td>$GLOBALS[param]</td>
-				</tr>
-				<tr>
-					<td>parameters:</td>
+					<td valign='top'>parameters:</td>
 					<td>$prms</td>
 				</tr>
 			</table>

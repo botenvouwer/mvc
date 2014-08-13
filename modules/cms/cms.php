@@ -7,7 +7,7 @@
 		}
 		
 		function main(){
-			//default action
+			echo 'cms pagina';
 		}
 		
 		
