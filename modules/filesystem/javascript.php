@@ -2,18 +2,18 @@
 
 	class javascript{
 		
-		function main(){
-			//of doe alles via main of deel alles op
-		}
-		
-		function library(){
+		function main($requestedJavascriptFilePath = ''){
 			
+			$file = $this->root.'/javascript/'.$requestedJavascriptFilePath;
+			if(is_file($file)){
+				header('Content-Type: application/javascript');
+				readfile($file);
+				exit;
+			}
+			else{
+				fileNotFound();
+			}
 		}
-		
-		function foreign_libraries(){
-			
-		}
-		
 	}
 
 ?>

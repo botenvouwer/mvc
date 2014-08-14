@@ -16,9 +16,14 @@
 			exit;
 		}
 		else{
-			echo 'not found 404 <br>'.$GLOBALS['request'];
+			echo "Not found 404 <br> $GLOBALS[request]";
 			exit;
 		}
+	}
+	
+	function fileNotFound(){
+		echo "Requested file not found 404 <br> $GLOBALS[request]";
+		exit;
 	}
 	
 	function printRequest(){

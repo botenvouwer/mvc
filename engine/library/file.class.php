@@ -1,11 +1,11 @@
 <?php
 	
-	/*
-		version 0.0.3
+	/* ~file.class.php - MicroBoatMVC
 		
-		william © botenvouwer - microBoatDB class
+		With the file class you can manage the uploaded userfiles. You also need this 
+		class to upload files and or create folders inside the MicroBoatMVC file system.
 		
-		to upload, edit files in mvc filesystem
+		
 	*/
 	
 	class file{

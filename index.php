@@ -2,7 +2,7 @@
 	
 	/* ~index.php - MicroBoatMVC
 	
-		Version 0.0.5
+		Version 0.0.6
 	
 	*/
 	
@@ -200,6 +200,20 @@
 	$paramCount = count($parameters);
 	$requiredParametersCount = $requestedAction->getNumberOfRequiredParameters();
 	$allParametersCount = $requestedAction->getNumberOfParameters();
+	$paramReflection = $requestedAction->getParameters();
+	
+	if($allParametersCount == 1){
+		
+		if(is_array($paramReflection[0]->getDefaultValue()) && $paramCount > 0){
+			$paramCount = 1;
+			$parameters = array($parameters);
+		}
+		else if(is_string($paramReflection[0]->getDefaultValue()) && $paramCount > 0){
+			$paramCount = 1;
+			$parameters = array(implode('/',$parameters));
+		}
+		
+	}
 	
 	if($requiredParametersCount > 0 && $requiredParametersCount != $paramCount){
 		pageNotFound();
@@ -208,6 +222,7 @@
 	if($allParametersCount > 0 && $allParametersCount < $paramCount){
 		pageNotFound();
 	}
+	
 	
 	//check if user has rights to use requested actions
 	if(!userHasRight($request)){
