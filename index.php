@@ -2,7 +2,7 @@
 	
 	/* ~index.php - MicroBoatMVC
 	
-		Version 0.0.6
+		Version 0.0.7
 	
 	*/
 	
@@ -20,7 +20,7 @@
 	$adres = (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['SERVER_NAME'].($_SERVER['SERVER_PORT'] == 80 ? '' : ':'.$_SERVER['SERVER_PORT']).$root;
 	$url = $adres;
 	$root = $_SERVER['DOCUMENT_ROOT'].$root;
-	$conf = parse_ini_file($root.'/conf.ini');
+	$conf = parse_ini_file($root.'/conf/conf.ini');
 	date_default_timezone_set($conf['timezone']);
 	
 	//subActions that can't be reached because they serve another purpose
@@ -108,7 +108,7 @@
 	}
 	else{
 		if(class_exists($action)){
-			error('Default nameSpace action is an existing php class');
+			trigger_error('MVC error: Default nameSpace action is an existing php class', E_USER_ERROR);
 		}
 	}
 	
@@ -248,7 +248,6 @@
 		}
 	}
 	
-	//todo: objecten toevoegen -! nakijken
 	$actionInstance->db = $db;
 	$actionInstance->url = $url;
 	$actionInstance->adres = $adres;

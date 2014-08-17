@@ -65,18 +65,54 @@
 			}
 		}
 		else{
-			trigger_error('MVC error: "[root]/engine/foreign_libraries/" folder not found.');
+			trigger_error('MVC error: "[root]/engine/foreign_libraries/" folder not found.', E_USER_ERROR);
 		}
+	}
+	
+	function isView($viewName){
+		
+		if(file_exists($GLOBALS['root'].'/'.$viewName.'/'.$viewName.'.view.php')){
+			return true;
+		}
+		else{
+			return false;
+		}
+		
 	}
 	
 	function setView($viewName){
 		
 		global $actionInstance;
-		
-		//todo: haal view op en maak instantie aan
-		
 		$actionInstance->view = false;
 		
+		if(isView($viewName)){
+			include_once($GLOBALS['root'].'/'.$viewName.'/'.$viewName.'.view.php');
+			$view = $viewName.'view';
+			if(class_exists($view)){
+				$actionInstance->view = new $view();
+			}
+			else{
+				trigger_error("MVC error: view has no view extention", E_USER_ERROR);
+			}
+		}
+		else{
+			trigger_error("MVC error: view not found", E_USER_ERROR);
+		}
+		
+	}
+	
+	function mimeType($filename){
+		include_once($GLOBALS['root'].'/conf/mimetypes.php');
+		$fileSuffix = '';
+		preg_match("|\.([a-z0-9]{2,4})$|i", $filename, $fileSuffix);
+		$fileSuffix = $fileSuffix[1];
+		$fileSuffix = strtolower($fileSuffix);
+		if(isset($mimeTypes[$fileSuffix])){
+			return $mimeTypes[$fileSuffix];
+		}
+		else{
+			return 'application/octet-stream';
+		}
 	}
 	
 	function parseList($list, $separator = ','){

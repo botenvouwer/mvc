@@ -11,7 +11,9 @@
 			if($length >= 2){
 				$this->selectedView = $requestedFilePath[0];
 				
-				//todo: controleren of view bestaad
+				if(!isView($selectedView)){
+					fileNotFound();
+				}
 				
 				unset($requestedFilePath[0]);
 				$this->requestedFilePath = implode('/',$requestedFilePath);
@@ -24,7 +26,7 @@
 		
 		function css($requestedCSSFilePath = array()){
 			
-			$this->resolveViewAndFileName();
+			$this->resolveViewAndFileName($requestedCSSFilePath);
 			
 			$file = $this->root.'/'.$this->selectedView.'/css/'.$this->requestedFilePath;
 			if(is_file($file)){
@@ -38,15 +40,13 @@
 			
 		}
 		
-		function image(){
-			$this->resolveViewAndFileName();
+		function image($requestedIMAGEFilePath = array()){
+			$this->resolveViewAndFileName($requestedIMAGEFilePath);
 			
-			$file = $this->root.'/'.$this->selectedView.'/javascript/'.$this->requestedFilePath;
+			$file = $this->root.'/'.$this->selectedView.'/image/'.$this->requestedFilePath;
 			if(is_file($file)){
 				
-				//zoek image mime type op
-				
-				header('Content-Type: application/javascript');
+				header('Content-Type: '.mimeType($file));
 				readfile($file);
 				exit;
 			}
@@ -55,8 +55,8 @@
 			}
 		}
 		
-		function javascript(){
-			$this->resolveViewAndFileName();
+		function javascript($requestedJSFilePath = array()){
+			$this->resolveViewAndFileName($requestedJSFilePath);
 			
 			$file = $this->root.'/'.$this->selectedView.'/javascript/'.$this->requestedFilePath;
 			if(is_file($file)){
