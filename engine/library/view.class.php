@@ -15,14 +15,23 @@
 		protected $js = array();
 		protected $css = array();
 		protected $header = array();
+		private $name = '';
 		public $title;
 		
-		function __construct(){
-			
+		function setName($name){
+			if(!$this->name){
+				$this->name = $name;
+				return true;
+			}
+			return false;
 		}
 		
-		public function addCSS($css){
-			$this->css[] = $css;
+		function getName(){
+			return $this->name;
+		}
+		
+		public function addCSS($css, $media = false){
+			$this->css[] = array($css, $media);
 		}
 		
 		public function addJS($js){
@@ -39,24 +48,65 @@
 		
 		function send(){
 			
-			foreach(glob('*.css') as $filename){
-				$this->add_css("view_{$this->style}/$filename");
+			global $conf;
+			global $root;
+			global $url;
+			
+			//loop through added css files and add them to html file if they exist
+			$css = '';
+			foreach($this->css as $filename){
+				
+				$filepath = "$root/views/$this->name/css/$filename[0]";
+				$urlpath = "$url/style/css/$this->name/$filename[0]";
+				if(is_file($filepath)){
+					$media = ($filename[1] ? " media='$filename[1]'" : '');
+					$css .= "<link rel='stylesheet' href='$urlpath' type='text/css'>\n";
+				}
+				else{
+					if($conf['debug']){
+						trigger_error('View error: css file not found at: '.$filepath, E_USER_ERROR);
+					}
+				}
+				
 			}
 			
+			//loop door javascript en voeg toe als ze gevonden zijn
+			$js = '';
+			foreach($this->js as $filename){
+				$filepathView = "$root/views/$this->name/javascript/$filename";
+				$urlpathView = "$url/style/javascript/$this->name/$filename";
+				$filepathJS = "$root/javascript/$filename";
+				$urlpathJS = "$url/javascript/$filename";
+				
+				if(is_file($filepathView)){
+					$js .= "<script src='$urlpathView'></script>\n";
+				}
+				else if(is_file($filepathJS)){
+					$js .= "<script src='$urlpathJS'></script>\n";
+				}
+				else{
+					if($conf['debug']){
+						trigger_error('View error: javascript file not found at: '.$root.'/javascript/ or '.$filepathView.']/javascript/', E_USER_ERROR);
+					}
+				}
+			}
 			
+			//loop door headers en voeg ze toe aan het document
+			$headers = '';
+			foreach($this->header as $header){
+				$headers .= "$header\n";
+			}
 			
-			$write_css = '';
-			$write_js = '';
-			
+			$this->html = trim($this->html);
 			$html = '
 				<!DOCTYPE html>
 				<html>
 					<head>
 						<title>'.$this->title.'</title>
 						<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-						'.$header.'
+						'.$headers.'
 						'.$css.'
-						'.$javascript.'
+						'.$js.'
 					</head>
 					<body>
 						'.$this->html.'

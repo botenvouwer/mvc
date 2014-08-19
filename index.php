@@ -2,7 +2,7 @@
 	
 	/* ~index.php - MicroBoatMVC
 	
-		Version 0.0.7
+		Version 0.0.8
 	
 	*/
 	
@@ -22,9 +22,6 @@
 	$root = $_SERVER['DOCUMENT_ROOT'].$root;
 	$conf = parse_ini_file($root.'/conf/conf.ini');
 	date_default_timezone_set($conf['timezone']);
-	
-	//subActions that can't be reached because they serve another purpose
-	$myNotCall = array('db','url','adres','root','conf');
 	
 	//error reporting and debug mode configuration
 	if($conf['debug']){
@@ -92,11 +89,23 @@
 		}
 	}
 	
-	$nameSpaceConf = parseJsonFile("$root/namespaces/$nameSpace/conf.json");
+	if(is_file($path = "$root/namespaces/$nameSpace/conf.json")){
+		$nameSpaceConf = parseJsonFile($path);
+		
+		if(!isset($nameSpaceConf['action'])){
+			trigger_error('MVC error: no default action set in nameSpace conf.json', E_USER_ERROR);
+		}
+		
+		if(!isset($nameSpaceConf['subaction'])){
+			trigger_error('MVC error: no default subaction set in nameSpace conf.json', E_USER_ERROR);
+		}
+	}
+	else{
+		trigger_error('MVC error: no nameSpace conf.json file set at "'.$path.'"', E_USER_ERROR);
+	}
 	
 	//action
 	$action = $nameSpaceConf['action'];
-	$view = $nameSpaceConf['view'];
 	
 	if(isset($requestPart[0])){
 		if(class_exists($requestPart[0])){
@@ -155,6 +164,12 @@
 		pageNotFound();
 	}
 	
+	//set moduleConf if module conf exists
+	$moduleConf = false;
+	if(is_file($path = "$root/modules/$action/conf.json")){
+		$moduleConf = parseJsonFile($path);
+	}
+	
 	//subaction
 	$mainMethodExists = method_exists($action, $nameSpaceConf['subaction']);
 	
@@ -181,10 +196,6 @@
 	}
 	
 	if(!$subactionFound){
-		pageNotFound();
-	}
-	
-	if(in_array($subaction, $myNotCall)){
 		pageNotFound();
 	}
 	
@@ -236,15 +247,27 @@
 	}
 	
 	$actionInstance = new $action();
-	$actionInstance->view = false;
 	
 	//find view for the request
 	if(!$ajax){
-		if($actionInstance->view){
-			setView($actionInstance->view);
+		
+		if(isset($actionInstance->view)){
+			//set view from class
+			if($actionInstance->view){
+				setView($actionInstance->view);
+			}
 		}
-		else{
-			//todo: haal standaart view op of haal view op uit module
+		else{	
+			if(isset($moduleConf['view'])){
+				//set view from module conf
+				setView($moduleConf['view']);
+			}
+			else{
+				//set view from namaspace conf
+				if(isset($nameSpaceConf['view'])){
+					setView($nameSpaceConf['view']);
+				}
+			}
 		}
 	}
 	
@@ -253,6 +276,8 @@
 	$actionInstance->adres = $adres;
 	$actionInstance->root = $root;
 	$actionInstance->conf = $conf;
+	$actionInstance->moduleConf = $moduleConf;
+	$actionInstance->nameSpaceConf = $nameSpaceConf;
 	
 	call_user_func_array(array($actionInstance, $subaction), $parameters);
 	

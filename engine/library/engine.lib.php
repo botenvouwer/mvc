@@ -71,7 +71,7 @@
 	
 	function isView($viewName){
 		
-		if(file_exists($GLOBALS['root'].'/'.$viewName.'/'.$viewName.'.view.php')){
+		if(file_exists($GLOBALS['root'].'/views/'.$viewName.'/'.$viewName.'.view.php')){
 			return true;
 		}
 		else{
@@ -85,18 +85,24 @@
 		global $actionInstance;
 		$actionInstance->view = false;
 		
-		if(isView($viewName)){
-			include_once($GLOBALS['root'].'/'.$viewName.'/'.$viewName.'.view.php');
-			$view = $viewName.'view';
-			if(class_exists($view)){
-				$actionInstance->view = new $view();
+		if($viewName){
+			if(isView($viewName)){
+				include_once($GLOBALS['root'].'/views/'.$viewName.'/'.$viewName.'.view.php');
+				$view = $viewName.'view';
+				if(class_exists($view)){
+					$actionInstance->view = new $view();
+					$actionInstance->view->setName($viewName);
+				}
+				else{
+					trigger_error("MVC error: view '$viewName' has no view extention", E_USER_ERROR);
+				}
 			}
 			else{
-				trigger_error("MVC error: view has no view extention", E_USER_ERROR);
+				trigger_error("MVC error: view '$viewName' not found", E_USER_ERROR);
 			}
 		}
 		else{
-			trigger_error("MVC error: view not found", E_USER_ERROR);
+			$actionInstance->view = false;
 		}
 		
 	}
@@ -132,6 +138,7 @@
 	
 	//checks if user has permission to use request
 	function userHasRight($request){
+		//todo: create rights system
 		return true;
 	}
 	

@@ -10,31 +10,31 @@
 	
 	class file{
 		
-		function upload($folder){
+		function saveUpload($filename = false){
 			
 		}
 		
-		function get($target){
+		function get($fileID){
 			
 		}
 		
-		function exists($target){
+		function exists($fileID){
 			
 		}
 		
-		function create($name, $content){
+		function create($name, $content, $description = '', $directory, $public = true){
 			
 		}
 		
-		function delete($target){
+		function delete($fileID){
 			
 		}
 		
-		function rename($target, $name, $description){
+		function rename($fileID, $name, $description = false){
 			
 		}
 		
-		function move($target, $location){
+		function move($fileID, $folderID){
 			
 		}
 		

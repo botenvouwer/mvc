@@ -11,7 +11,7 @@
 			if($length >= 2){
 				$this->selectedView = $requestedFilePath[0];
 				
-				if(!isView($selectedView)){
+				if(!isView($this->selectedView)){
 					fileNotFound();
 				}
 				
@@ -28,7 +28,7 @@
 			
 			$this->resolveViewAndFileName($requestedCSSFilePath);
 			
-			$file = $this->root.'/'.$this->selectedView.'/css/'.$this->requestedFilePath;
+			$file = $this->root.'/views/'.$this->selectedView.'/css/'.$this->requestedFilePath;
 			if(is_file($file)){
 				header('Content-Type: text/css');
 				readfile($file);
@@ -43,7 +43,7 @@
 		function image($requestedIMAGEFilePath = array()){
 			$this->resolveViewAndFileName($requestedIMAGEFilePath);
 			
-			$file = $this->root.'/'.$this->selectedView.'/image/'.$this->requestedFilePath;
+			$file = $this->root.'/views/'.$this->selectedView.'/images/'.$this->requestedFilePath;
 			if(is_file($file)){
 				
 				header('Content-Type: '.mimeType($file));
@@ -58,7 +58,7 @@
 		function javascript($requestedJSFilePath = array()){
 			$this->resolveViewAndFileName($requestedJSFilePath);
 			
-			$file = $this->root.'/'.$this->selectedView.'/javascript/'.$this->requestedFilePath;
+			$file = $this->root.'/views/'.$this->selectedView.'/javascript/'.$this->requestedFilePath;
 			if(is_file($file)){
 				header('Content-Type: application/javascript');
 				readfile($file);

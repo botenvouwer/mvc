@@ -1,0 +1,210 @@
+body{
+	margin: 0px;
+	font: 14px Tahoma,TahomaRegular,Geneva,Verdana,sans-serif;
+	line-height: 18px;
+	background: url('../../../style/image/blog/achtergrond.png') 50% 0 fixed repeat-x;
+}
+
+a{
+	transition: color 10s ease;
+	color: rgb(255, 0, 153);
+}
+
+a:hover{
+	transition: color 10s ease;
+	color: rgb(158, 79, 202);
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+a:visited{
+	color: rgb(255, 0, 153);
+}
+
+h1{
+	font-size: 24px;
+	margin: 0px 0px 19px 0px;
+}
+
+h2{
+	font-size: 20px;
+	margin:0px;
+}
+
+.main{
+	background: rgb(54,51,46);
+	height: 50px;
+}
+
+header.main{
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	background-image:-webkit-linear-gradient(-90deg,#000 0%,rgba(0,0,0,0.22) 100%);
+	background-image:-moz-linear-gradient(-90deg,#000 0%,rgba(0,0,0,0.22) 100%);
+	background-image:-o-linear-gradient(-90deg,#000 0%,rgba(0,0,0,0.22) 100%);
+	background-image:-ms-linear-gradient(-90deg,#000 0%,rgba(0,0,0,0.22) 100%);
+}
+
+	#logo{
+		width:202px;
+		margin: 0px 0px;
+		background-color: rgb(255,0,153);
+		background: url('../../../style/image/blog/banner-web.png');
+		background-position-x: 0px;
+		background-position-y: 10px;
+		background-repeat: no-repeat;
+	}
+	
+	.menu{
+		list-style: none;
+		padding: 0px;
+		margin: 17px 0px 0px 0px;
+		width: 246px;
+	}
+	
+		.menu li{
+			float: left;
+			border: 1px solid rgb(100, 100, 100);
+			padding: 3px 11px;
+			border-radius: 6px;
+			margin: 0px 0px 0px 11px;
+			cursor: pointer;
+			color: rgb(201, 201, 201);
+		}
+		
+		.menu li:hover{
+			color: rgb(255, 255, 255);
+			border-color: rgb(201, 201, 201);;
+		}
+
+#content{
+	display: flex;
+	justify-content: center;
+	align-content: center;
+}
+
+	#leftColumn{
+		
+	}
+		
+		#leftColumn div.sidebar{
+			width: 200px;
+		}
+	
+	#mainColumn{
+		background: rgb(255, 255, 255);
+	}
+	
+	.mainColumn{
+		width: 500px;
+	}
+	
+	#rightColumn{
+		
+	}
+		
+		#rightColumn div.sidebar{
+			width: 250px;
+		}
+	
+.sidebar{
+	background: rgba(0, 0, 0, 0.72);
+	margin: 17px 0px;
+	color: rgb(255, 0, 153);
+}
+	
+	.sidebar > header{
+		background: rgba(214, 214, 206, 0.43);
+		padding: 9px 8px;
+		color: rgb(0, 0, 0);
+	}
+	
+	.sidebar ul{
+		list-style-type: none;
+		padding: 12px;
+		margin: 0px;
+	}
+	
+	.sidebarbox{
+		padding: 10px;
+	}
+
+.ul li:before{
+	content: "\203A \0020";
+}
+
+footer.main{
+	text-align: center;
+	line-height: 57px;
+	color: rgb(255, 255, 255);
+	opacity:1;
+	background-image:-webkit-linear-gradient(-90deg,rgb(0,0,0) 0%,rgb(66,66,66) 100%);
+	background-image:-moz-linear-gradient(-90deg,rgb(0,0,0) 0%,rgb(66,66,66) 100%);
+	background-image:-o-linear-gradient(-90deg,rgb(0,0,0) 0%,rgb(66,66,66) 100%);
+	background-image:-ms-linear-gradient(-90deg,rgb(0,0,0) 0%,rgb(66,66,66) 100%);
+}
+
+	footer.main a{
+		margin:0px 10px;
+	}
+
+.blog > article{
+	padding: 0px 0px;
+	margin: 20px 15px;
+	border-bottom: 1px dashed rgb(185, 185, 185);
+}
+	
+	.blog article h1{
+		
+	}
+	
+	.blog article p{
+		
+	}
+	
+	.blog a{
+		text-decoration: underline;
+	}
+	
+	img.thumbnail{
+		float: left;
+		margin: 0px 27px 1px 0px;
+	}
+	
+	.blog footer{
+		height: 30px;
+	}
+	
+	.blog footer ul{
+		list-style-type: none;
+		padding: 5px;
+		margin: 0px;
+	}
+		
+		.blog footer ul li{
+			float: left;
+			border-right: 1px solid rgb(185, 185, 185);
+			padding: 0px 6px;
+		}
+		
+		.blog footer ul li:last-child{
+			border-right: none;
+		}
+	
+.tweetbox{
+	
+}
+
+	.tweetbox div.tweet{
+		margin-bottom: 4px;
+	}
+	
+		.tweetbox div.tweet header{
+			
+		}
+		
+		.tweetbox div.tweet article{
+			color:rgb(207, 177, 183);
+		}
