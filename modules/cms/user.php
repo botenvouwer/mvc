@@ -1,6 +1,6 @@
 <?php
 
-	class user{
+	class users{
 		
 		function main(){
 			//show user editor

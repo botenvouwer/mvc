@@ -1,0 +1,18 @@
+@media all and (max-width: 640px){
+	
+	body{
+		background-image:-webkit-linear-gradient(-70deg,rgb(54,54,54) 0%,rgb(133,133,133) 28%,rgb(212,212,212) 69%,rgb(232,232,232) 100%);
+		background-image:-moz-linear-gradient(-70deg,rgb(54,54,54) 0%,rgb(133,133,133) 28%,rgb(212,212,212) 69%,rgb(232,232,232) 100%);
+		background-image:-o-linear-gradient(-70deg,rgb(54,54,54) 0%,rgb(133,133,133) 28%,rgb(212,212,212) 69%,rgb(232,232,232) 100%);
+		background-image:-ms-linear-gradient(-70deg,rgb(54,54,54) 0%,rgb(133,133,133) 28%,rgb(212,212,212) 69%,rgb(232,232,232) 100%);
+	}
+	
+	#content{
+		flex-direction: column;
+	}
+	
+	#leftColumn {
+		position: absolute;
+	}
+	
+}

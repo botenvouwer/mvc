@@ -137,9 +137,120 @@
 	}
 	
 	//checks if user has permission to use request
-	function userHasRight($request){
-		//todo: create rights system
-		return true;
+	function userHasRight($nameSpace, $action, $subaction){
+		
+		global $db;
+		$user = $_SESSION['user'];
+		
+		if($rightList = getRightForRequest($nameSpace, $action, $subaction)){
+			
+			if($user > 0){
+				
+				$rightList = implode(',', $rightList);
+				$query = "
+					SELECT COUNT( * ) 
+					FROM  `mvc_rights` r
+					LEFT JOIN  `mvc_grouprights` gr ON r.`id` = gr.`right` 
+					LEFT JOIN  `mvc_groups` g ON gr.`group` = g.`id` 
+					LEFT JOIN  `mvc_groupusers` gu ON g.`id` = gu.`group` 
+					LEFT JOIN  `mvc_users` u ON gu.`user` = u.`id` 
+					WHERE u.`id` = $user
+					AND r.`id` 
+					IN ( $rightList )
+				";
+				
+				$count = $db->one($query);
+				
+				if($count > 0){
+					return true;
+				}
+				else{
+					return false;
+				}
+			}
+			else{
+				return false;
+			}
+		}
+		else{
+			return true;
+		}
+	}
+	
+	//todo: verhuizen naar rights.class
+	function getListOfUserRights($userID){
+		
+		
+		
+	}
+	
+	function getRightForRequest($nameSpace, $action, $subaction){
+		//check if there is need to have right for a request
+		
+		global $db;
+		
+		//kijken of subactie unieke rechten nodig heeft
+		$subactionRight = $db->one("SELECT `id` FROM `mvc_rights` WHERE `right` = :param", ':param', "$nameSpace.$action.$subaction");
+		$actionRight = $db->one("SELECT `id` FROM `mvc_rights` WHERE `right` = :param", ':param', "$nameSpace.$action");
+		$nameSpaceRight = $db->one("SELECT `id` FROM `mvc_rights` WHERE `right` = :param", ':param', "$nameSpace");
+		
+		if($subactionRight){
+			$rightsRequieredList = getSuperRichts($nameSpace, $action);
+			$rightsRequieredList[] = $subactionRight;
+		}
+		else if($actionRight){
+			$rightsRequieredList = getSuperRichts($nameSpace);
+			$rightsRequieredList[] = $actionRight;
+		}
+		else if($nameSpaceRight){
+			$rightsRequieredList = getSuperRichts();
+			$rightsRequieredList[] = $nameSpaceRight;
+		}
+		else{
+			return false;
+		}
+		
+		return $rightsRequieredList;
+		
+	}
+	
+	function getSuperRichts($nameSpace = false, $action = false){
+		
+		global $db;
+		
+		$array = array();
+		$array[] = '*';
+		
+		if($nameSpace){
+			$array[] = "$nameSpace.*";
+		}
+		
+		if($action){
+			$array[] = "$nameSpace.$action.*";
+		}
+		
+		$keys = array();
+		$parameters = array();
+		foreach($array as $key => $value){
+			$keys[] = ":pram_$key";
+			
+			$parameters[] = array(
+				":pram_$key",
+				$value,
+				'str'
+			);
+		}
+		
+		$keys = implode(',', $keys);
+		$rights = $db->query("SELECT `id` FROM `mvc_rights` WHERE `right` IN ($keys)", $parameters);
+		
+		$rightsReturn = array();
+		while($row = $rights->fetch()){
+			$rightsReturn[] = $row->id;
+		}
+		
+		return $rightsReturn;
+		
 	}
 	
 ?>

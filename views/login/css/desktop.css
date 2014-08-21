@@ -1,0 +1,56 @@
+body{
+	margin: 0px;
+	font: 14px Tahoma,TahomaRegular,Geneva,Verdana,sans-serif;
+	line-height: 18px;
+	background-image: url('../../../style/image/login/backgound.png');
+	background-position-x: 0%;
+	background-repeat: repeat repeat;
+	background-color: rgb(230, 230, 230);
+}
+
+a{
+	transition: color 10s ease;
+	color: rgb(255, 0, 153);
+}
+
+a:hover{
+	transition: color 10s ease;
+	color: rgb(158, 79, 202);
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+a:visited{
+	color: rgb(255, 0, 153);
+}
+
+h1{
+	font-size: 24px;
+	margin: 0px 0px 19px 0px;
+}
+
+h2{
+	font-size: 20px;
+	margin:0px;
+}
+
+#main{
+	height: 100%;
+	width: 100%;
+	position: absolute;
+}
+
+	#login{
+		border-width: 2px;
+		border-style: ridge;
+		width: 370px;
+		height: 168px;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		margin: -12% 0 0 -187px;
+		-webkit-box-shadow: rgba(0, 0, 0, 0.298039) 2px 2px 2px 0px;
+		-moz-box-shadow: rgba(0, 0, 0, 0.298039) 2px 2px 2px 0px;
+		box-shadow: rgba(0, 0, 0, 0.298039) 2px 2px 2px 0px;
+		background: rgb(255, 255, 255);
+	}

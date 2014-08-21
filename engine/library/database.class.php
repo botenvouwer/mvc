@@ -140,7 +140,14 @@
 		
 		public function one($query = '', $label = '', $value = ''){
 			$query = $this->query($query, $label, $value);
-			return $query->fetchColumn();
+			$count = $query->rowCount();
+			if($count > 0){
+				return $query->fetchColumn();
+			}
+			else{
+				return false;
+			}
+			
 		}
 		
 		public function add($tablename, $table_colloms){

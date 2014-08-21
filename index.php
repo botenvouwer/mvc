@@ -2,7 +2,7 @@
 	
 	/* ~index.php - MicroBoatMVC
 	
-		Version 0.0.8
+		Version 0.0.9
 	
 	*/
 	
@@ -236,13 +236,21 @@
 	
 	
 	//check if user has rights to use requested actions
-	if(!userHasRight($request)){
+	if(!userHasRight($nameSpace, $action, $subaction)){
 		if($ajax){
 			//stuur ajax foutmelding
 		}
 		else{
-			$nameSpace = 'authentication';
-			//laad autenticatie part
+			if(is_file("$root/modules/user/main.php")){
+				include_once("$root/modules/user/main.php");
+			}
+			include_once("$root/modules/user/user.php");
+			
+			$nameSpace = 'default';
+			$action = 'user';
+			$subaction = 'login';
+			$parameters = array($request);
+			$moduleConf = parseJsonFile("$root/modules/user/conf.json");
 		}
 	}
 	
@@ -258,6 +266,7 @@
 			}
 		}
 		else{	
+			
 			if(isset($moduleConf['view'])){
 				//set view from module conf
 				setView($moduleConf['view']);

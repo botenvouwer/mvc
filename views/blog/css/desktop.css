@@ -123,7 +123,7 @@ header.main{
 	
 	.sidebar ul{
 		list-style-type: none;
-		padding: 12px;
+		padding: 0px;
 		margin: 0px;
 	}
 	
@@ -193,18 +193,18 @@ footer.main{
 			border-right: none;
 		}
 	
-.tweetbox{
+#tweetbox{
 	
 }
 
-	.tweetbox div.tweet{
+	#tweetbox div.tweet{
 		margin-bottom: 4px;
 	}
 	
-		.tweetbox div.tweet header{
+		#tweetbox div.tweet header{
 			
 		}
 		
-		.tweetbox div.tweet article{
+		#tweetbox div.tweet article{
 			color:rgb(207, 177, 183);
 		}

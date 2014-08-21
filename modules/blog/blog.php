@@ -111,6 +111,16 @@
 			
 		}
 		
+		function react(){
+			
+			if(isset($_POST['reaction'])){
+				
+				
+				
+			}
+			
+		}
+		
 	}
 
 ?>
