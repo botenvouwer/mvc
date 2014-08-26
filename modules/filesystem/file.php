@@ -2,9 +2,14 @@
 
 	class getfile{
 		
+		function __construct(){
+			$this->view = false;
+		}
+		
 		function main($fileID){
 			
 			$file = new microBoatFile($fileID);
+			
 			if($file->found()){
 				if($file->isPublic()){
 					$file->stream();

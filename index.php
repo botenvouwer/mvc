@@ -215,11 +215,18 @@
 	
 	if($allParametersCount == 1){
 		
-		if(is_array($paramReflection[0]->getDefaultValue()) && $paramCount > 0){
+		try{
+			$type = $paramReflection[0]->getDefaultValue();
+		}
+		catch (Exception $e){
+			$type = null;
+		}
+		
+		if(is_array($type) && $paramCount > 0){
 			$paramCount = 1;
 			$parameters = array($parameters);
 		}
-		else if(is_string($paramReflection[0]->getDefaultValue()) && $paramCount > 0){
+		else if(is_string($type) && $paramCount > 0){
 			$paramCount = 1;
 			$parameters = array(implode('/',$parameters));
 		}

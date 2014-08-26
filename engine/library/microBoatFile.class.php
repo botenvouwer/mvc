@@ -82,6 +82,10 @@
 			
 		}
 		
+		function contentType(){
+			return $this->contentType;
+		}
+		
 		function randomName(){
 			
 			
@@ -98,6 +102,7 @@
 			if(is_file($file)){
 				
 				header('Content-Type: '+$this->contentType);
+				header("Content-disposition: attachment; filename=\"$this->name.$this->extension\""); 
 				readfile($file);
 				exit;
 				
