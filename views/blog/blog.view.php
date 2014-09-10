@@ -22,6 +22,7 @@
 			$this->addJS('library/jquery.ui.touch-punch.min.js');
 			$this->addJS('library/jquery.cookie.js');
 			$this->addJS('library/MicoBoatWebapp.js');
+			$this->addJS('desktop.js');
 			
 		}
 		
@@ -128,7 +129,9 @@
 			
 			$this->html("
 		  		<header class='main'>
-		  			<a href='$GLOBALS[url]' id='logo'></a>
+		  			<a href='$GLOBALS[url]' id='logo'>
+		  				<img src='$GLOBALS[url]/style/image/blog/banner-web.png'>
+		  			</a>
 		  			<div class='mainColumn'></div>
 		  			<ul id='mainMenu' class='menu'>
 		  				<li>Archief</li>

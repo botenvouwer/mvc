@@ -2,6 +2,7 @@ body{
 	margin: 0px;
 	font: 14px Tahoma,TahomaRegular,Geneva,Verdana,sans-serif;
 	line-height: 18px;
+	background-color: rgb(168,115,135);
 	background: url('../../../style/image/blog/achtergrond.png') 50% 0 fixed repeat-x;
 }
 
@@ -57,20 +58,15 @@ header.main{
 }
 
 	#logo{
-		width:202px;
+		width:200px;
 		margin: 0px 0px;
-		background-color: rgb(255,0,153);
-		background: url('../../../style/image/blog/banner-web.png');
-		background-position-x: 0px;
-		background-position-y: 10px;
-		background-repeat: no-repeat;
 	}
 	
 	.menu{
 		list-style: none;
 		padding: 0px;
 		margin: 17px 0px 0px 0px;
-		width: 246px;
+		width: 250px;
 	}
 	
 		.menu li{
