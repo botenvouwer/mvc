@@ -7,7 +7,7 @@
 		}
 		
 		function main(){
-			echo 'cms pagina';
+			$this->view->content = 'cms pagina';
 		}
 		
 		

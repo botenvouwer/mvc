@@ -162,19 +162,21 @@
 				$count = $db->one($query);
 				
 				if($count > 0){
-					return true;
+					$gonogo = true;
 				}
 				else{
-					return false;
+					$gonogo = false;
 				}
 			}
 			else{
-				return false;
+				$gonogo = false;
 			}
 		}
 		else{
-			return true;
+			$gonogo = true;
 		}
+		
+		return $gonogo;
 	}
 	
 	//todo: verhuizen naar rights.class
@@ -251,6 +253,15 @@
 		
 		return $rightsReturn;
 		
+	}
+	
+	function nice_url($string){
+	    return trim(preg_replace('/[^a-z0-9-]+/', '-', strtolower($string)), '-');
+	}
+	
+	function redirect($location){
+		header('Location: '.$location);
+		exit;
 	}
 	
 ?>

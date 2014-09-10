@@ -31,6 +31,15 @@ h2{
 	margin:0px;
 }
 
+.emtyMessage{
+	border: 1px solid red;
+	margin: 20px 35px;
+	display: block;
+	padding: 6px;
+	font-size: 18px;
+	font-family: monospace;
+}
+
 .main{
 	background: rgb(54,51,46);
 	height: 50px;
@@ -95,6 +104,7 @@ header.main{
 	
 	#mainColumn{
 		background: rgb(255, 255, 255);
+		min-height: 700px;
 	}
 	
 	.mainColumn{
@@ -170,7 +180,7 @@ footer.main{
 	
 	img.thumbnail{
 		float: left;
-		margin: 0px 27px 1px 0px;
+		margin: 0px 14px 1px 0px;
 	}
 	
 	.blog footer{
@@ -181,17 +191,87 @@ footer.main{
 		list-style-type: none;
 		padding: 5px;
 		margin: 0px;
+		color: rgba(0, 0, 0, 0.61); 
+	}
+	
+	.blog .socialShit{
+		float: right;
+		margin-top: -10px;
+	}
+	
+	.blog .info{
+		
+	}
+	
+	.blog .meld{
+		float: right;
+		margin-top: -10px;
 	}
 		
 		.blog footer ul li{
 			float: left;
-			border-right: 1px solid rgb(185, 185, 185);
 			padding: 0px 6px;
 		}
 		
-		.blog footer ul li:last-child{
+		.blog .info li{
+			border-right: 1px solid rgb(185, 185, 185);
+		}
+		
+		.blog .info li:last-child{
 			border-right: none;
 		}
+		
+		.blog .socialShit li{
+			padding: 0px 3px;
+			filter: grayscale(1);
+			-webkit-filter: grayscale(1);
+			-moz-filter: grayscale(1);
+			-o-filter: grayscale(1);
+			-ms-filter: grayscale(1);
+			transition: all 0.5s ease;
+		}
+		
+		.blog .socialShit li:hover{
+			transition: all 0.5s ease;
+			cursor: pointer;
+			filter: grayscale(0);
+			-webkit-filter: grayscale(0);
+			-moz-filter: grayscale(0);
+			-o-filter: grayscale(0);
+			-ms-filter: grayscale(0);
+		}
+		
+		.blog .youtube{
+			width: 500px;
+			height: 350px;
+			margin-left: -15px;
+		}
+
+		.blog .blogImage{
+			width: 500px;
+			margin-left: -15px;
+		}
+		
+	.reactionMain{
+		background: black;
+		color: white;
+		padding: 9px;
+		margin: 0px 14px;
+	}
+	
+		.reactionMain h1{
+			margin: 0px;
+		}
+		
+#blogNavigation{
+	display: flex;
+	justify-content: space-between;
+	padding: 0px 20px 18px 20px;
+}
+
+	#blogNavigation > div{
+		
+	}
 	
 #tweetbox{
 	

@@ -9,7 +9,7 @@
 		public $twitterfeed = true;
 		public $twitterfeed2 = false;
 		public $poll = true;
-		
+		public $title = 'Ons Urker Land';
 		
 		function __construct(){
 			
@@ -128,7 +128,7 @@
 			
 			$this->html("
 		  		<header class='main'>
-		  			<div id='logo'></div>
+		  			<a href='$GLOBALS[url]' id='logo'></a>
 		  			<div class='mainColumn'></div>
 		  			<ul id='mainMenu' class='menu'>
 		  				<li>Archief</li>

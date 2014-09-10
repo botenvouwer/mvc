@@ -2,8 +2,13 @@
 
 	class user{
 		
+		function __construct(){
+			
+		}
+		
 		function main(){
-			echo 'userProfile';
+			$user = $this->db->query("SELECT `username`, `email`, `name`, `sirname` FROM `mvc_users` WHERE `id` = :id", ':id', $this->id);
+			$this->view->content = 'Ingelogd als';
 		}
 		
 		function login($request){
