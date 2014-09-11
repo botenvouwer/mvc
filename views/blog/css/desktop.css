@@ -32,6 +32,14 @@ h2{
 	margin:0px;
 }
 
+label{
+	cursor: pointer;
+}
+
+input{
+	cursor: pointer;
+}
+
 .emtyMessage{
 	border: 1px solid red;
 	margin: 20px 35px;
@@ -42,8 +50,8 @@ h2{
 }
 
 .main{
-	background: rgb(54,51,46);
-	height: 50px;
+	background-color: rgb(255,0,153);
+	height: 60px;
 }
 
 header.main{
@@ -51,10 +59,10 @@ header.main{
 	display: flex;
 	justify-content: center;
 	align-content: center;
-	background-image:-webkit-linear-gradient(-90deg,#000 0%,rgba(0,0,0,0.22) 100%);
-	background-image:-moz-linear-gradient(-90deg,#000 0%,rgba(0,0,0,0.22) 100%);
-	background-image:-o-linear-gradient(-90deg,#000 0%,rgba(0,0,0,0.22) 100%);
-	background-image:-ms-linear-gradient(-90deg,#000 0%,rgba(0,0,0,0.22) 100%);
+	background-image:-webkit-linear-gradient(-85deg,rgb(255,0,153) 0%,rgb(219,31,144) 49%,rgb(189,30,125) 100%);
+	background-image:-moz-linear-gradient(-85deg,rgb(255,0,153) 0%,rgb(219,31,144) 49%,rgb(189,30,125) 100%);
+	background-image:-o-linear-gradient(-85deg,rgb(255,0,153) 0%,rgb(219,31,144) 49%,rgb(189,30,125) 100%);
+	background-image:-ms-linear-gradient(-85deg,rgb(255,0,153) 0%,rgb(219,31,144) 49%,rgb(189,30,125) 100%);
 }
 
 	#logo{
@@ -62,26 +70,33 @@ header.main{
 		margin: 0px 0px;
 	}
 	
+		#logo img{
+			margin: 5px 0px;
+		}
+	
 	.menu{
 		list-style: none;
 		padding: 0px;
-		margin: 17px 0px 0px 0px;
+		margin: 28px 0px;
 		width: 250px;
 	}
 	
 		.menu li{
 			float: left;
-			border: 1px solid rgb(100, 100, 100);
+			border: 2px solid rgba(255, 255, 255, 0.75);
 			padding: 3px 11px;
 			border-radius: 6px;
-			margin: 0px 0px 0px 11px;
+			margin: 0px 11px 0px 0px;
 			cursor: pointer;
-			color: rgb(201, 201, 201);
+			color: rgb(255, 255, 255);
+			transition: all 0.3s ease;
 		}
 		
 		.menu li:hover{
-			color: rgb(255, 255, 255);
-			border-color: rgb(201, 201, 201);;
+			color: rgba(255, 255, 255, 0.83);
+			border-color: rgb(255, 255, 255);
+			background: rgba(0, 0, 0, 0.08);
+			transition: all 0.3s ease;
 		}
 
 #content{
@@ -122,9 +137,9 @@ header.main{
 }
 	
 	.sidebar > header{
-		background: rgba(214, 214, 206, 0.43);
+		background: rgb(124, 113, 120);
 		padding: 9px 8px;
-		color: rgb(0, 0, 0);
+		color: rgb(255, 236, 247);
 	}
 	
 	.sidebar ul{
@@ -145,15 +160,15 @@ footer.main{
 	text-align: center;
 	line-height: 57px;
 	color: rgb(255, 255, 255);
-	opacity:1;
-	background-image:-webkit-linear-gradient(-90deg,rgb(0,0,0) 0%,rgb(66,66,66) 100%);
-	background-image:-moz-linear-gradient(-90deg,rgb(0,0,0) 0%,rgb(66,66,66) 100%);
-	background-image:-o-linear-gradient(-90deg,rgb(0,0,0) 0%,rgb(66,66,66) 100%);
-	background-image:-ms-linear-gradient(-90deg,rgb(0,0,0) 0%,rgb(66,66,66) 100%);
+	background-image:-webkit-linear-gradient(90deg,rgb(255,0,153) 0%,rgb(199,18,127) 73%,rgb(184,39,126) 100%);
+	background-image:-moz-linear-gradient(90deg,rgb(255,0,153) 0%,rgb(199,18,127) 73%,rgb(184,39,126) 100%);
+	background-image:-o-linear-gradient(90deg,rgb(255,0,153) 0%,rgb(199,18,127) 73%,rgb(184,39,126) 100%);
+	background-image:-ms-linear-gradient(90deg,rgb(255,0,153) 0%,rgb(199,18,127) 73%,rgb(184,39,126) 100%);
 }
 
 	footer.main a{
 		margin:0px 10px;
+		color: rgb(255, 255, 255);
 	}
 
 .blog > article{
@@ -163,7 +178,7 @@ footer.main{
 }
 	
 	.blog article h1{
-		
+		color: rgb(228, 0, 137);
 	}
 	
 	.blog article p{
