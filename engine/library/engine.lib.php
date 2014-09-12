@@ -264,4 +264,11 @@
 		exit;
 	}
 	
+	function unsetCookie($cookie, $path = '/'){
+		if(isset($_COOKIE[$cookie])){
+			unset($_COOKIE[$cookie]);
+	       	setcookie($cookie, null, -1, $path);
+		}
+	}
+	
 ?>

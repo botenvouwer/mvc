@@ -22,7 +22,9 @@
 			$this->addJS('library/jquery.ui.touch-punch.min.js');
 			$this->addJS('library/jquery.cookie.js');
 			$this->addJS('library/MicoBoatWebapp.js');
+			$this->addJS('library/MicroBoatMVC.js');
 			$this->addJS('desktop.js');
+			$this->addHeader('<meta name="action-url" content="'.$GLOBALS['url'].'" />');
 			
 		}
 		

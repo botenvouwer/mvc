@@ -156,7 +156,7 @@
 				$form = '';
 			}
 			else{
-				$form = '<article class="blogReactionForm"><p>Je bent niet ingelogt! <br> <a>Log in</a> of <a>maak een account</a> aan.</p></article>';
+				$form = '<article class="blogReactionForm"><p>Je bent niet ingelogt! <br> <a class="authorize">Log in</a> of <a href="'.$GLOBALS['url'].'/user/register">maak een account</a> aan.</p></article>';
 			}
 			
 			return $header.$form;

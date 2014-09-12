@@ -8,7 +8,7 @@
 		
 		function main(){
 			if(!$_SESSION['user']){
-				$this->view->content = 'U bent niet ingelogd! U kunt hier een account aanmaken.';
+				$this->view->content = 'U bent niet ingelogd! U kunt <a href="'.$GLOBALS['url'].'/user/register">hier</a> een account aanmaken.';
 			}
 			else{
 				$user = $this->db->query("SELECT `username`, `email`, `name`, `sirname` FROM `mvc_users` WHERE `id` = :id", ':id', $_SESSION['user']);
@@ -19,8 +19,41 @@
 			}
 		}
 		
-		function login($request){
-			$this->view->content = 'test login and redirect to-> '. $request;
+		function login(){
+			
+			$returnTo = $GLOBALS['url'];
+			if(isset($_COOKIE['returnURL'])){
+				$returnTo = $_COOKIE['returnURL'];
+			}
+			
+			if(isset($_REQUEST['login'])){
+				//formulier valideren en inlogen
+			}
+			
+			//formulier opmaken
+			
+			$this->view->content = 'login and return to '.$returnTo;
+		}
+		
+		function passreset($arg = array()){
+			
+			if(count($arg)){
+				
+			}
+			else{
+				
+			}
+			
+		}
+		
+		function activate($arg = array()){
+			
+			if(count($arg)){
+				
+			}
+			else{
+				
+			}
 		}
 		
 		function register(){

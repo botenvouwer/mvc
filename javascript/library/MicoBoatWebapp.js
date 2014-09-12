@@ -6,7 +6,7 @@ var preLoads = true;
 var actionPre = null;
 var jsPre = null;
 var form = null;
-var actionUrl = 'http://' + location.host + '/ajax.php';
+var actionUrl = 'http://' + location.host + '/';
 var events = ["click", "change", "mouseenter", "mouseout", "focusout", "blur", "keypress"];
 
 //#start actions------------------------------------------------------------------------

@@ -86,7 +86,7 @@
 				}
 				else{
 					if($conf['debug']){
-						trigger_error('View error: javascript file not found at: '.$root.'/javascript/ or '.$filepathView.']/javascript/', E_USER_ERROR);
+						trigger_error('View error: javascript file not found at: '.$filepathJS.' or '.$filepathView, E_USER_ERROR);
 					}
 				}
 			}
